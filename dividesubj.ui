@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dividesubj</class>
+ <widget class="QDialog" name="dividesubj">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1012</width>
+    <height>218</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLineEdit" name="dis_nameLE"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="facLE"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kursSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="chislo_chSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="chislo_grSB"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="grLE"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lkSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="ksSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="pract_na_grSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="pract_vsegoSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lab_na_grSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lab_vsegoSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="srs_na_grSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="srs_vsegoSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kp_krSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="ekzSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="zachSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="rkrzSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="rgrSB"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="vsegoSB"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="dis_nameLE_2"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="facLE_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kursSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="chislo_chSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="chislo_grSB_2"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="grLE_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lkSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="ksSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="pract_na_grSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="pract_vsegoSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lab_na_grSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="lab_vsegoSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="srs_na_grSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="srs_vsegoSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kp_krSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="ekzSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="zachSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="rkrzSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="rgrSB_2"/>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="vsegoSB_2"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="acceptDivisionBtn">
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineEdit"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineEdit_2"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
