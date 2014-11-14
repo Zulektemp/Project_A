@@ -67,6 +67,7 @@ void MainWindow::fillTableView()
 {
     ui->tableView->clearSpans();
     m_csvModel = new QSqlTableModel(this);
+    m_csvModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     m_csvModel->setTable("main");
     m_csvModel->select();
     ui->tableView->setModel(m_csvModel);
@@ -111,7 +112,9 @@ void MainWindow::on_importCSVbtn_clicked()
     //Suppression + creation of the table
       QSqlQuery que;
     que.exec("DROP TABLE main;");
-    que.exec ("CREATE TABLE main(dis_name char(255),fac char(255),kurs int,chislo_ch int,chislo_gr int,gr char(255),lk int,ks int,pract_na_gr int,pract_vsego int,lab_na_gr int,lab_vsego int,srs_na_gr int,srs_vsego int,kp_kr int,ekz int,zach int,rkrz int,rgr int,vsego int,id long primary key);");
+    que.exec ("CREATE TABLE main(dis_name char(255),fac char(255),kurs int,chislo_ch int,chislo_gr int,gr char(255),"
+              "lk int,ks int,pract_na_gr int,pract_vsego int,lab_na_gr int,lab_vsego int,srs_na_gr int,srs_vsego int,"
+              "kp_kr int,ekz int,zach int,rkrz int,rgr int,vsego int,id integer primary key autoincrement);");
 
     QFileDialog dg;
     dg.setFileMode(QFileDialog::ExistingFile);
@@ -131,7 +134,6 @@ void MainWindow::on_importCSVbtn_clicked()
         QTextStream ts(&f);
 
 
-        qlonglong idIncr=0;
         //Travel through the csv file "excel.csv"
         while(!ts.atEnd()){
 
@@ -142,8 +144,8 @@ void MainWindow::on_importCSVbtn_clicked()
             if (word.size()>3){
                 qDebug()<<"rabotaet4";
 
-                QString z = "INSERT INTO main(dis_name,fac,kurs,chislo_ch,chislo_gr,gr,lk,ks,pract_na_gr,pract_vsego,lab_na_gr,lab_vsego,srs_na_gr,srs_vsego,kp_kr,ekz,zach,rkrz,rgr,vsego,id)"
-                        "VALUES('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12', '%13', '%14', '%15', '%16', '%17', '%18', '%19', '%20', '%21');";
+                QString z = "INSERT INTO main(dis_name,fac,kurs,chislo_ch,chislo_gr,gr,lk,ks,pract_na_gr,pract_vsego,lab_na_gr,lab_vsego,srs_na_gr,srs_vsego,kp_kr,ekz,zach,rkrz,rgr,vsego)"
+                        "VALUES('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12', '%13', '%14', '%15', '%16', '%17', '%18', '%19', '%20');";
                 QString x;
 
 
@@ -175,16 +177,13 @@ void MainWindow::on_importCSVbtn_clicked()
                         .arg(word.at(16))
                         .arg(word.at(17))
                         .arg(word.at(18))
-                        .arg(word.at(19))
-                        .arg(idIncr);
-                idIncr++;
+                        .arg(word.at(19));
                 if (!que.exec(x)){};
             }
         }
     }
     f.close ();
     fillTableView();
-    m_csvModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
 }
 
 void MainWindow::bigGroupForPractValueChangedHandler(int value)
@@ -224,10 +223,6 @@ void MainWindow::writedRel2ValueChangedHandler(int value)
     ui->tableView->setItemDelegate(m_delegate);
 }
 
-
-
-
-
 void MainWindow::on_divideSubjbtn_clicked()
 {
     QModelIndexList selectedIndexesList = ui->tableView->selectionModel()->selectedIndexes();
@@ -238,24 +233,12 @@ void MainWindow::on_divideSubjbtn_clicked()
     }
     else
     {
-
         QModelIndex neededIndex = selectedIndexesList.takeFirst();
         m_csvModel->insertRow(neededIndex.row()+1);
+
         DivSubj.downloadData(m_csvModel,neededIndex,m_csvModel->rowCount());
         DivSubj.initializator();
         DivSubj.exec();
-
-        qDebug()<<m_csvModel->rowCount();
-        qlonglong rowCnt = m_csvModel->rowCount();
-        for (int i=0; i<=rowCnt; i++)
-        {
-            QModelIndex idIndex = m_csvModel->index(i,20);
-            qDebug()<<m_csvModel->data(idIndex)<<idIndex<<i;
-            m_csvModel->setData(idIndex,i);
-
-        }
-
-        ui->tableView->reset();
 
         m_csvModel->submitAll();
 

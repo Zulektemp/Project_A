@@ -10,18 +10,29 @@ dividesubj::dividesubj(QWidget *parent) :
 
 }
 
+void copyData(QAbstractItemModel *model, int column, int rowFrom, int rowTo)
+{
+    QVariant data = model->data(model->index(rowFrom, column), Qt::EditRole);
+    model->setData(model->index(rowTo, column), data);
+}
 
 void dividesubj::downloadData(QSqlTableModel *loadedModel, QModelIndex loadedIndex, int lastId)
 {
     i=false;
     mapper = new QDataWidgetMapper(this);
     mapper->setModel(loadedModel);
-    mapper->addMapping(ui->dis_nameLE, loadedModel->fieldIndex("dis_name"));
-    mapper->addMapping(ui->facLE, loadedModel->fieldIndex("fac"));
-    mapper->addMapping(ui->kursSB, loadedModel->fieldIndex("kurs"));
+
+    int fieldIndex_dis_name = loadedModel->fieldIndex("dis_name");
+    int fieldIndex_fac = loadedModel->fieldIndex("fac");
+    int fieldIndex_kurs = loadedModel->fieldIndex("kurs");
+    int fieldIndex_gr = loadedModel->fieldIndex("gr");
+
+    mapper->addMapping(ui->dis_nameLE, fieldIndex_dis_name);
+    mapper->addMapping(ui->facLE, fieldIndex_fac);
+    mapper->addMapping(ui->kursSB, fieldIndex_kurs);
     mapper->addMapping(ui->chislo_chSB, loadedModel->fieldIndex("chislo_ch"));
     mapper->addMapping(ui->chislo_grSB, loadedModel->fieldIndex("chislo_gr"));
-    mapper->addMapping(ui->grLE, loadedModel->fieldIndex("gr"));
+    mapper->addMapping(ui->grLE, fieldIndex_gr);
     mapper->addMapping(ui->lkSB, loadedModel->fieldIndex("lk"));
     mapper->addMapping(ui->ekzSB, loadedModel->fieldIndex("eks"));
     mapper->addMapping(ui->kp_krSB, loadedModel->fieldIndex("kp_kr"));
@@ -36,18 +47,17 @@ void dividesubj::downloadData(QSqlTableModel *loadedModel, QModelIndex loadedInd
     mapper->addMapping(ui->rkrzSB, loadedModel->fieldIndex("rkrz"));
     mapper->addMapping(ui->rgrSB, loadedModel->fieldIndex("rgr"));
     mapper->addMapping(ui->pract_vsegoSB, loadedModel->fieldIndex("pract_vsego"));
-    mapper->addMapping(ui->lineEdit_2,loadedModel->fieldIndex("id"));
     mapper->setCurrentModelIndex(loadedIndex);
 
     mapper_2 = new QDataWidgetMapper(this);
     mapper_2->setModel(loadedModel);
     qDebug()<<"1@"<<ui->pract_na_grSB->value();
-    mapper_2->addMapping(ui->dis_nameLE_2, loadedModel->fieldIndex("dis_name"));
-    mapper_2->addMapping(ui->facLE_2,loadedModel->fieldIndex("fac"));
-    mapper_2->addMapping(ui->kursSB_2,loadedModel->fieldIndex("kurs"));
+    mapper_2->addMapping(ui->dis_nameLE_2, fieldIndex_dis_name);
+    mapper_2->addMapping(ui->facLE_2,fieldIndex_fac);
+    mapper_2->addMapping(ui->kursSB_2,fieldIndex_kurs);
     mapper_2->addMapping(ui->chislo_chSB_2, loadedModel->fieldIndex("chislo_ch"));
     mapper_2->addMapping(ui->chislo_grSB_2, loadedModel->fieldIndex("chislo_gr"));
-    mapper_2->addMapping(ui->grLE_2, loadedModel->fieldIndex("gr"));
+    mapper_2->addMapping(ui->grLE_2, fieldIndex_gr);
     mapper_2->addMapping(ui->lkSB_2, loadedModel->fieldIndex("lk"));
     mapper_2->addMapping(ui->ekzSB_2, loadedModel->fieldIndex("eks"));
     mapper_2->addMapping(ui->kp_krSB_2, loadedModel->fieldIndex("kp_kr"));
@@ -62,19 +72,20 @@ void dividesubj::downloadData(QSqlTableModel *loadedModel, QModelIndex loadedInd
     mapper_2->addMapping(ui->rkrzSB_2, loadedModel->fieldIndex("rkrz"));
     mapper_2->addMapping(ui->rgrSB_2, loadedModel->fieldIndex("rgr"));
     mapper_2->addMapping(ui->pract_vsegoSB_2, loadedModel->fieldIndex("pract_vsego"));
-    mapper_2->addMapping(ui->lineEdit,loadedModel->fieldIndex("id"));
-    mapper_2->setCurrentModelIndex(loadedIndex);
-    mapper_2->toNext();
-    ui->dis_nameLE_2->setText(ui->dis_nameLE->text());
-    ui->facLE_2->setText(ui->facLE->text());
-    ui->kursSB_2->setValue(ui->kursSB->value());
-    ui->grLE_2->setText(ui->grLE->text());
 
+    QModelIndex nextIndex = loadedIndex.sibling(loadedIndex.row()+1, loadedIndex.column());
+    mapper_2->setCurrentModelIndex(nextIndex);
+
+    int loadedRow = loadedIndex.row();
+    int nextRow = nextIndex.row();
+    copyData(loadedModel, fieldIndex_dis_name, loadedRow, nextRow);
+    copyData(loadedModel, fieldIndex_fac, loadedRow, nextRow);
+    copyData(loadedModel, fieldIndex_kurs, loadedRow, nextRow);
+    copyData(loadedModel, fieldIndex_gr, loadedRow, nextRow);
 
     QString lastIdString = QString::number(lastId);
     ui->lineEdit->setText(lastIdString);
     qDebug()<<"2@"<<ui->pract_na_grSB->value();
-
 }
 
 void dividesubj::initializator()
