@@ -234,7 +234,7 @@ void MainWindow::on_divideSubjbtn_clicked()
     dividesubj DivSubj;
     if (selectedIndexesList.isEmpty())
     {
-        qDebug()<<"АЛЛАХ АКБАР";
+        qDebug()<<"Не выбрана строка";
     }
     else
     {
@@ -246,7 +246,7 @@ void MainWindow::on_divideSubjbtn_clicked()
         DivSubj.exec();
 
         qDebug()<<m_csvModel->rowCount();
-        qlonglong rowCnt = m_csvModel->rowCount()+1;
+        qlonglong rowCnt = m_csvModel->rowCount();
         for (int i=0; i<=rowCnt; i++)
         {
             QModelIndex idIndex = m_csvModel->index(i,20);
